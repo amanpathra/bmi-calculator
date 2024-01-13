@@ -1,11 +1,12 @@
-import React, {useState} from 'react'
+import React, { useContext } from 'react'
+import { AllContext } from '../context/AllContext'
 
-const Form = (props) => {
+const Form = () => {
 
-    const [gender, setGender] = useState('M')
+    const { unitSystem, setUnitSystem, gender, setGender, HnW, setHnW } = useContext(AllContext);
 
     const changeUS = (e) => {
-        props.setUnitSystem(e.target.innerHTML[0])
+        setUnitSystem(e.target.innerHTML[0])
     }
 
     const changeGender = (e) => {
@@ -14,17 +15,17 @@ const Form = (props) => {
 
     const handleChange = (e) => {
         if(e.target.name === 'height'){
-            props.setHnW({ height: e.target.value, weight: props.HnW.weight })
+            setHnW({ height: e.target.value, weight: HnW.weight })
         }else{
-            props.setHnW({ height: props.HnW.height, weight: e.target.value })
+            setHnW({ height: HnW.height, weight: e.target.value })
         }
     }
 
     return (
         <div className='form'>
             <div className="units">
-                <button onClick={changeUS} className={`unitBtn${props.unitSystem==='M'?' activeSys':''}`}>Metric</button>
-                <button onClick={changeUS} className={`unitBtn${props.unitSystem==='I'?' activeSys':''}`}>Imperial</button>
+                <button onClick={changeUS} className={`unitBtn${unitSystem==='M'?' activeSys':''}`}>Metric</button>
+                <button onClick={changeUS} className={`unitBtn${unitSystem==='I'?' activeSys':''}`}>Imperial</button>
             </div>
             <div className="details">
                 <div className='box' id='box1'>
@@ -44,13 +45,13 @@ const Form = (props) => {
                     <div>
                         <input type="number" name='height' onChange={handleChange}/>
                     </div>
-                    <span>Height ({props.unitSystem==='M'?'cm':'in'})</span>
+                    <span>Height ({unitSystem==='M'?'cm':'in'})</span>
                 </div>
                 <div className='box' id='box4'>
                     <div>
                         <input type="number" name='weight' onChange={handleChange}/>
                     </div>
-                    <span>Weight ({props.unitSystem==='M'?'kg':'lbs'})</span>
+                    <span>Weight ({unitSystem==='M'?'kg':'lbs'})</span>
                 </div>
             </div>
         </div>

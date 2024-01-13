@@ -1,16 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AllContext } from '../context/AllContext'
 
-const Button = (props) => {
+const Button = () => {
+
+    const { HnW, unitSystem, setBMI } = useContext(AllContext);
 
     const handleClick = () => {
-        calcFunc(props.HnW.height, props.HnW.weight, props.unitSystem)
+        calcFunc(HnW.height, HnW.weight, unitSystem)
     }
 
     const calcFunc = (height, weight, unitSystem) => {
         if(unitSystem==='M'){
-            props.setBMI(weight/((height/100)**2))
+            setBMI(weight/((height/100)**2))
         }else{
-            props.setBMI((weight/(height**2))*703)
+            setBMI((weight/(height**2))*703)
         }
     }
 
